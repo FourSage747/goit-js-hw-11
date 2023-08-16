@@ -1,0 +1,82 @@
+body {
+    margin: 0;
+    background-color: black;
+    padding-bottom: 50px;
+}
+.search-form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.search-form input {
+    width: 500px;
+    border: 0;
+    padding: 10px;
+    border-radius: 10px 0 0 10px;
+    font-size: 20px;
+}
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    background: linear-gradient(to bottom, #FF0000, #A52A2A);
+    border: 0;
+    border-radius: 0 10px 10px 0;
+    fill: white;
+    cursor: pointer;
+}
+.div {
+    padding: 20px;
+    background: linear-gradient(to bottom, #FF7518, #FF4433);
+}
+.gallery {
+    padding: 50px 30px 50px 30px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: space-between;
+}
+.info {
+    display: flex;
+}
+.photo-card {
+    width: 330px;
+    box-shadow: 0 0 15px 3px orange;
+    border-radius: 10px;
+}
+.photo-card img {
+    display: block;
+    border-radius: 10px 10px 0 0;
+}
+.info-item {
+    text-align: center;
+    line-height: 25px;
+    margin: 0;
+    padding: 10px 0;
+    background: linear-gradient(225deg, #FF7518, #FF4433);
+    color: white;
+}
+.info-item:first-child {
+    border-radius: 0 0 0 10px;
+}
+.info-item:last-child {
+    border-radius: 0 0 10px 0;
+}
+.load-more {
+    display: block;
+    margin: auto;
+    padding: 20px 60px;
+    background: linear-gradient(to bottom, #FF7518, #FF4433);
+    border: 0;
+    border-radius: 10px;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+::-webkit-scrollbar {
+    width: 15px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #888;
+  }

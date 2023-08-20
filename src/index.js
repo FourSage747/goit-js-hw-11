@@ -28,8 +28,8 @@ function onLoad () {
 }
 
 
-function search(id, page) {
-    return fetch(`${baseurl}?key=${apikey}&q=${id}&image_type=photo&orientation=horizontal&safesearch=true&page=${page}&per_page=40`)
+async function search(id, page) {
+    return await fetch(`${baseurl}?key=${apikey}&q=${id}&image_type=photo&orientation=horizontal&safesearch=true&page=${page}&per_page=40`)
     .then(resp => {
       if (!resp.ok) {
         throw new Error(resp.statusText);

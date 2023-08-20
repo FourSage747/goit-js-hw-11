@@ -13,10 +13,10 @@ let page = 1;
 
 
 loadmore.addEventListener('click', onLoad);
-function onLoad () {
+async function onLoad () {
     page += 1;
     const searchQuery = form.elements.searchQuery.value;
-    search(searchQuery, page)
+    const searchON = await search(searchQuery, page)
     .then(data => {gallery.insertAdjacentHTML('beforeend', createCards(data.hits))
     lightbox.refresh();
     if (page * 40 >= data.totalHits) {
@@ -42,12 +42,12 @@ async function search(id, page) {
 
 
   form.addEventListener('submit', submittop);
-  function submittop(evt) {
+  async function submittop(evt) {
       evt.preventDefault();
       loadmore.style.display = 'none';
       page = 1
       const searchQuery = form.elements.searchQuery.value;
-      search(searchQuery, page)
+      const submitON = await search(searchQuery, page)
       .then(data => {
         if (data.hits.length === 0) {
             Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.');

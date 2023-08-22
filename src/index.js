@@ -13,32 +13,41 @@ let page = 1;
 
 
 loadmore.addEventListener('click', onLoad);
-async function onLoad () {
-    page += 1;
-    const searchQuery = form.elements.searchQuery.value;
-    const searchON = await search(searchQuery, page)
-    .then(data => {gallery.insertAdjacentHTML('beforeend', createCards(data.hits))
-    lightbox.refresh();
-    if (page * 40 >= data.totalHits) {
-        loadmore.style.display = 'none';
-        Notiflix.Notify.failure("We're sorry, but you've reached the end of search results.");
-    }
-    })
-    .catch(err => console.log(err))
+async function onLoad() {
+  page += 1;
+  const searchQuery = form.elements.searchQuery.value;
+  
+  try {
+      const data = await search(searchQuery, page);
+      gallery.insertAdjacentHTML('beforeend', createCards(data.hits));
+      lightbox.refresh();
+      
+      if (page * 40 >= data.totalHits) {
+          loadmore.style.display = 'none';
+          Notiflix.Notify.failure("We're sorry, but you've reached the end of search results.");
+      }
+  } catch (err) {
+      console.log(err);
+  }
 }
 
 
 async function search(id, page) {
-    return await fetch(`${baseurl}?key=${apikey}&q=${id}&image_type=photo&orientation=horizontal&safesearch=true&page=${page}&per_page=40`)
-    .then(resp => {
-      if (!resp.ok) {
-        throw new Error(resp.statusText);
-      }
+  try {
+    const resp = await fetch(`${baseurl}?key=${apikey}&q=${id}&image_type=photo&orientation=horizontal&safesearch=true&page=${page}&per_page=40`)
+    
+    if (!resp.ok) {
+     throw new Error(resp.statusText);
+    }
       
   
-      return resp.json();
-    });
+    return resp.json();
   }
+  catch (err) {
+    console.log(err);
+  }
+  
+}
 
 
   form.addEventListener('submit', submittop);
@@ -47,18 +56,20 @@ async function search(id, page) {
       loadmore.style.display = 'none';
       page = 1
       const searchQuery = form.elements.searchQuery.value;
-      const submitON = await search(searchQuery, page)
-      .then(data => {
+      try {
+        const data = await search(searchQuery, page)
         if (data.hits.length === 0) {
-            Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.');
-            return;
+          Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.');
+          return;
         }
         gallery.innerHTML = createCards(data.hits)
         loadmore.style.display = 'block';
         lightbox.refresh();
         console.log(data)
-        })
-      .catch(err => console.log(err))
+      }
+      catch(err ) {
+        console.log(err);
+      }
   }
 
   function createCards (arr) {
